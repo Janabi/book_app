@@ -1,3 +1,4 @@
+
 header {
     width: 100%;
     background-color: #000;
@@ -12,19 +13,24 @@ header {
 
 .hamburger {
     width: 5%;
-}
-
-.hamburger div {
-    cursor: pointer;
-    text-align: right;
-    width: 25px;
-    height: 5px;
-    background-color: #fff;
-    margin-bottom: 1px;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    /* background-color: #111; */
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 25px;
 }
 
 h1.title {
     width: 95%;
+    height: 70px;
+    color: white;
+    line-height: 70px;
+    font-size: 30px;
+    padding-left: 2%;
+    font-family: ‘Roboto’, sans-serif;
 }
 
 .list {
@@ -33,16 +39,16 @@ h1.title {
     display: none;
 }
 
-nav.list ul li a{
-    color: #fff !important;
-    display: block;
-}
-
 .section {
     width: 100%;
-    background-color: #808080;
+    background: #4A4A4A;
     padding: 7px 0;
     text-align: center;
+    height: 60px;
+    line-height: 50px;
+    color: white;
+    font-size: 25px;
+    margin-bottom: 30px;
 }
 
 form {
@@ -51,9 +57,42 @@ form {
 }
 
 input[type=text],
-button,
-label {
+button {
     width: 80%;
     margin: 5px 10%;
+    height: 40px;
 }
 
+input[type=text]{
+    margin-bottom: 25px;
+}
+
+button{
+    background-color: #000;
+    color: #fff;
+}
+
+label{
+    background-color: #fff;
+    text-align: left;
+    position: relative;
+    left: 10%;
+    width: 80%;
+    height: 40px;
+    margin-bottom: 25px;
+    margin-left: 50px;
+    padding-top: 7px;
+    padding-left: 10px;
+}
+
+input[type=radio]{
+   margin-left: 75px;
+}
+
+.book-container {
+    width: 80%;
+    margin: 10px 10% 20px;
+    background-color: #b1b1b1;
+    border-radius: 4px;
+    box-shadow: 5px 5px 2px 2px #414141;
+}
