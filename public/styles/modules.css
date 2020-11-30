@@ -37,3 +37,13 @@ nav.list ul li a:hover{
 .book-container p {
     margin: 10px 10% 0;
 }
+
+.show-detail{
+    display: block;
+    margin: 10px auto;
+    width: 40%;
+    padding: 10px 0;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+}
