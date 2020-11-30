@@ -1,5 +1,5 @@
 'use strict';
-
+// App Dependencies
 const express = require('express');
 
 require('dotenv').config();
@@ -8,7 +8,7 @@ const app = express();
 const superagent = require('superagent');
 
 const PORT = process.env.PORT;
-
+// App Setups
 app.use(express.static('./public'));
 app.use(express.urlencoded({extended:true}));
 
@@ -17,7 +17,14 @@ const pg = require('pg');
 const { request, response } = require('express');
 const client = new pg.Client(process.env.DATABASE_URL);
 
-app.get('/', (request, response)=>{
+// Routes:
+app.get('/', mainPage);
+app.post('/books', favoriteBook);
+app.get('/books/:id', detailFavorite);
+app.get('/searches/new', searchBooks);
+app.post('/searches', searchResults);
+
+function mainPage (request, response) {
     let SQL = `SELECT * FROM books;`;
     client.query(SQL)
     .then(results =>{
@@ -29,9 +36,9 @@ app.get('/', (request, response)=>{
     .catch((error)=>{
         response.render('pages/error', {errors: error});
     })
-});
+}
 
-app.post('/books', (request, response)=>{
+function favoriteBook (request, response) {
     let SQL = `INSERT INTO books (title, author, isbn, image_url, description) VALUES ($1,$2,$3,$4,$5) RETURNING *;`;
     let {title, author, isbn, image_url, description} = request.body;
     let safeValues = [title, author, isbn, image_url, description];
@@ -41,22 +48,28 @@ app.post('/books', (request, response)=>{
     .then(result=>{
         response.redirect(`/books/${result.rows[0].id}`);
     })
-})
+    .catch((error)=>{
+        response.render('pages/error', {errors: error});
+    });
+}
 
-app.get('/books/:id', (request, response)=>{
+function  detailFavorite(request, response) {
     let SQL = `SELECT * FROM books WHERE id = $1;`;
     let safeValue = [request.params.id];
     client.query(SQL, safeValue)
     .then(results=>{
         response.render('pages/books/detail', {books: results.rows[0]});
+    })
+    .catch((error)=>{
+        response.render('pages/error', {errors: error});
     });
-});
+}
 
-app.get('/searches/new', (request, response)=>{
+function searchBooks (request, response){
     response.render('pages/searches/new');
-});
+}
 
-app.post('/searches', (request, response)=>{
+function searchResults (request, response) {
     let query_search = request.body.searchEngine;
     let category = request.body.category;
     
@@ -72,7 +85,7 @@ app.post('/searches', (request, response)=>{
     .catch((error)=>{
         response.render('pages/error', {errors: error});
     });
-})
+}
 
 function Book(data) {
     if (data.volumeInfo.imageLinks === undefined){
