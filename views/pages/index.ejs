@@ -9,14 +9,16 @@
 </head>
 <body>
     <%- include('../layout/header')%>
-    <h1><%= books.length %> Saved Books</h1>
+    <div class="section">
+        <p><span><%= books.length %></span> Saved Books</p>
+    </div>
     <section>
         <% books.forEach(value=>{ %>
             <div class="book-container">
                 <img src="<%= value.image_url %>" alt="">
                 <h2><%= value.title %></h2>
                 <h3><%= value.author %></h3>
-                <a href="/books/<%= value.id %>">Show Book</a>
+                <a class="show-detail" href="/books/<%= value.id %>">Show Book</a>
             </div>
         <% }) %>
 
