@@ -1,34 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com"> 
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/modules.css">
     <link rel="stylesheet" href="styles/reset.css">
 </head>
 <body>
-    <header class="navbar">
-        <div class="container">
-            <h1 class="title">Best Books!</h1>
-            <div class="hamburger">
-                <div></div>
-                <div></div>
-                <div></div>
+    <%- include('../layout/header')%>
+    <h1><%= books.length %> Saved Books</h1>
+    <section>
+        <% books.forEach(value=>{ %>
+            <div class="book-container">
+                <img src="<%= value.image_url %>" alt="">
+                <h2><%= value.title %></h2>
+                <h3><%= value.author %></h3>
+                <a href="/books/<%= value.id %>">Show Book</a>
             </div>
-        </div>
-        <nav class="list">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/searches/new">Search Google Books API</a></li>
-            </ul>
-        </nav>
-    </header>
-    <h1>Home Page</h1>
+        <% }) %>
+
+    </section>
+    <%- include('../layout/footer')%>
+    
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="../app.js"></script>
