@@ -9,20 +9,26 @@
 </head>
 <body>
     <%- include('../layout/header')%>
-    <div class="section">
-        <p><span><%= books.length %></span> Saved Books</p>
-    </div>
-    <section>
-        <% books.forEach(value=>{ %>
-            <div class="book-container">
-                <img src="<%= value.image_url %>" alt="">
-                <h2><%= value.title %></h2>
-                <h3><%= value.author %></h3>
-                <a class="show-detail" href="/books/<%= value.id %>">Show Book</a>
-            </div>
-        <% }) %>
+    <% if(books.length === 0){%>
+        <div class="section">
+            <p><span>0</span> Saved Books</p>
+        </div>
+    <%} else {%>
+        <div class="section">
+            <p><span><%= books.length %></span> Saved Books</p>
+        </div>
+        <section>
+            <% books.forEach(value=>{ %>
+                <div class="book-container">
+                    <img src="<%= value.image_url %>" alt="">
+                    <h2><%= value.title %></h2>
+                    <h3><%= value.author %></h3>
+                    <a class="show-detail" href="/books/<%= value.id %>">Show Book</a>
+                </div>
+            <% }) %>
 
-    </section>
+        </section>
+    <%}%>
     <%- include('../layout/footer')%>
     
 

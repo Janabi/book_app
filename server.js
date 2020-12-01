@@ -6,11 +6,13 @@ require('dotenv').config();
 
 const app = express();
 const superagent = require('superagent');
+const methodOverride = require('method-override');
 
 const PORT = process.env.PORT;
 // App Setups
 app.use(express.static('./public'));
 app.use(express.urlencoded({extended:true}));
+app.use(methodOverride('_method'));
 
 app.set('view engine', 'ejs');
 const pg = require('pg');
@@ -23,6 +25,8 @@ app.post('/books', favoriteBook);
 app.get('/books/:id', detailFavorite);
 app.get('/searches/new', searchBooks);
 app.post('/searches', searchResults);
+app.put('/books/:id', updateBook);
+app.delete('/books/:id', deleteBook);
 
 function mainPage (request, response) {
     let SQL = `SELECT * FROM books;`;
@@ -51,6 +55,27 @@ function favoriteBook (request, response) {
     .catch((error)=>{
         response.render('pages/error', {errors: error});
     });
+}
+
+function updateBook(request, response) {
+    let SQL = `UPDATE books SET title=$1, author=$2, isbn=$3, image_url=$4, description=$5 WHERE id=$6;`;
+    let getID = request.params.id;
+    let {title, author, isbn, image_url, description} = request.body;
+    let safeValues = [title, author, isbn, image_url, description, getID];
+    client.query(SQL, safeValues)
+    .then(()=>{
+        response.redirect(`/books/${request.params.id}`);
+    })
+}
+
+function deleteBook (request, response) {
+    let SQL = `DELETE FROM books WHERE id=$1;`;
+    let getID = request.params.id;
+    let safeValue = [getID];
+    client.query(SQL, safeValue)
+    .then(()=>{
+        response.redirect('/');
+    })
 }
 
 function  detailFavorite(request, response) {

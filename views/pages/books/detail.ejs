@@ -16,7 +16,21 @@
                 <h3><%= books.author %></h3>
                 <p><%= books.isbn %></p>
                 <p><%= books.description %></p>
+                <button id="showUpdateForm">update details</button>
+                <button id="btnDel">Delete Book</button>
+                <div id="popupMessage">
+                    <div id="message-content">
+
+                        <p>Are sure that you want to delete this book</p>
+                        <button>No</button>
+                        <form action="/books/<%= books.id %>?_method=delete" id="" method="post">
+                            <button>Yes</button>
+                        </form>
+                    </div>
+                </div>
             </div>
+            <%- include('edit') %>
+            <form action="" method="post"></form>
     </section>
     <%- include('../../layout/footer') %>
 
