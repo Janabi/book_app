@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Document</title>
+    <title>Search Google Books API</title>
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/modules.css">
@@ -18,8 +18,8 @@
                 <img src="<%= value.image %>" alt="">
                 <h2><%= value.title %></h2>
                 <h3><%= value.author %></h3>
-                <p><%= value.isbn %></p>
-                <p><%= value.description %></p>
+                <p class="isbn"><%= value.isbn %></p>
+                <p class="desc"><%= value.description %></p>
                 <form action="/books" method="post"> 
                     <input type="hidden" name="image_url" value="<%= value.image %>">
                     <input type="hidden" name="title" value="<%= value.title %>">
